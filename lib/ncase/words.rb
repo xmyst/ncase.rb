@@ -35,7 +35,7 @@ module Ncase
       @words.map {|s| s.downcase}.join("-")
     end
 
-    # @returns [String] the `KEBAB-CASE` representation of the string
+    # @return [String] the `KEBAB-CASE` representation of the string
     def upper_kebab_case
       @words.map {|s| s.upcase}.join("-")
     end
