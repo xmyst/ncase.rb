@@ -9,14 +9,13 @@ module Ncase
 
     def test_guess
       {
-        "this is-a test_string" => Words::SPACE_SEP_REGEXP,
-        "this-is-a-test_string" => Words::DASH_SEP_REGEXP,
-        "this_is-a_test-string" => Words::DASH_SEP_REGEXP,
-        "this_is_a_test-string" => Words::UNDERSCORE_SEP_REGEXP,
-        "ThisIsATestString"     => Words::CASE_SEP_REGEXP,
-        ""                      => Words::CASE_SEP_REGEXP,
-      }.each do |s, sep|
-        assert_equal sep, Words.guess_sep(s)
+        "this is-a test_string" => "This Is-a Test_string",
+        "this-is-a-test_string" => "This Is A Test_string",
+        "this_is-a_test-string" => "This_is A_test String",
+        "this_is_a_test-string" => "This Is A Test-string",
+        "ThisIsATestString"     => "This Is A Test String",
+      }.each do |s, t|
+        assert_equal t, Words.new(s).title_case
       end
     end
 

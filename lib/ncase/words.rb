@@ -7,32 +7,6 @@ module Ncase
   #   w = Ncase::Words.new("this is a test string")
   #   puts w.pascal_case  # => "ThisIsATestString"
   class Words
-    SPACE_SEP_REGEXP      = /\s+/
-    DASH_SEP_REGEXP       = /-/
-    UNDERSCORE_SEP_REGEXP = /_/
-    CASE_SEP_REGEXP       = /(?<=[[:lower:]])(?=[[:upper:]])/
-
-    # @return [Regexp] the most likely separator for the string
-    def self.guess_sep(s)
-      if s.scan(SPACE_SEP_REGEXP).count > 0
-        SPACE_SEP_REGEXP
-      else
-        num_total = s.count("-_")
-        if num_total > 0
-          num_dash = s.count("-")
-          if num_dash * 2 >= num_total
-            # More dashes.
-            DASH_SEP_REGEXP
-          else
-            # More underscores.
-            UNDERSCORE_SEP_REGEXP
-          end
-        else
-          CASE_SEP_REGEXP
-        end
-      end
-    end
-
     def initialize(s)
       ss = s.strip
       @words = ss.split(Words.guess_sep(ss))
@@ -102,6 +76,34 @@ module Ncase
         .chars
         .map {|c| if rand(2) == 0 then c.downcase else c.upcase end}
         .join
+    end
+
+    private
+
+    SPACE_SEP_REGEXP      = /\s+/
+    DASH_SEP_REGEXP       = /-/
+    UNDERSCORE_SEP_REGEXP = /_/
+    CASE_SEP_REGEXP       = /(?<=[[:lower:]]) (?=[[:upper:]]) | (?<=[[:upper:]]) (?=[[:upper:]] [[:lower:]])/x
+
+    # @return [Regexp] the most likely separator for the string
+    def self.guess_sep(s)
+      if s.scan(SPACE_SEP_REGEXP).count > 0
+        SPACE_SEP_REGEXP
+      else
+        num_total = s.count("-_")
+        if num_total > 0
+          num_dash = s.count("-")
+          if num_dash * 2 >= num_total
+            # More dashes.
+            DASH_SEP_REGEXP
+          else
+            # More underscores.
+            UNDERSCORE_SEP_REGEXP
+          end
+        else
+          CASE_SEP_REGEXP
+        end
+      end
     end
   end
 end
