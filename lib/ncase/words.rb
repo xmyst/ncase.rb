@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
 module Ncase
+  # @example Convert a string to `PascalCase`
+  #   require "ncase"
+  #
+  #   w = Ncase::Words.new("this is a test string")
+  #   puts w.pascal_case  # => "ThisIsATestString"
   class Words
     SPACE_SEP_REGEXP      = /\s+/
     DASH_SEP_REGEXP       = /-/
     UNDERSCORE_SEP_REGEXP = /_/
     CASE_SEP_REGEXP       = /(?<=[[:lower:]])(?=[[:upper:]])/
 
-    # Returns Regexp for the most likely separator in a string.
+    # @return [Regexp] the most likely separator for the string
     def self.guess_sep(s)
       if s.scan(SPACE_SEP_REGEXP).count > 0
         SPACE_SEP_REGEXP
@@ -33,7 +38,7 @@ module Ncase
       @words = ss.split(Words.guess_sep(ss))
     end
 
-    # Returns a camelCase string.
+    # @return [String] the `camelCase` representation of the string
     def camel_case
       first_word = @words.first
       if first_word.nil?
@@ -46,52 +51,52 @@ module Ncase
       end
     end
 
-    # Returns a PascalCase string.
+    # @return [String] the `PascalCase` representation of the string
     def pascal_case
       @words.map {|s| s.capitalize}.join
     end
 
-    # Returns a kebab-case string.
+    # @return [String] the `kebab-case` representation of the string
     def kebab_case
       @words.map {|s| s.downcase}.join("-")
     end
 
-    # Returns a KEBAB-CASE string.
+    # @returns [String] the `KEBAB-CASE` representation of the string
     def upper_kebab_case
       @words.map {|s| s.upcase}.join("-")
     end
 
-    # Returns a `lower case` string.
+    # @return [String] the `lower case` representation of the string
     def lower_case
       @words.map {|s| s.downcase}.join(" ")
     end
 
-    # Returns an `UPPER CASE` string.
+    # @return [String] the `UPPER CASE` representation of the string
     def upper_case
       @words.map {|s| s.upcase}.join(" ")
     end
 
-    # Returns a snake_case string.
+    # @return [String] the `snake_case` representation of the string
     def snake_case
       @words.map {|s| s.downcase}.join("_")
     end
 
-    # Returns a SNAKE_CASE string.
+    # @return [String] the `SNAKE_CASE` representation of the string
     def upper_snake_case
       @words.map {|s| s.upcase}.join("_")
     end
 
-    # Returns a `Title Case` string.
+    # @return [String] the `Title Case` representation of the string
     def title_case
       @words.map {|s| s.capitalize}.join(" ")
     end
 
-    # Returns a `tITLE cASE` string.
+    # @return [String] the `tITLE cASE` representation of the string
     def inver_title_case
       title_case.swapcase
     end
 
-    # Returns a `rAnDOm CaSe` string
+    # @return [String] a `rAnDOm CaSe` representation of the string
     def random_case
       @words.join(" ")
         .chars
