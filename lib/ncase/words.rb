@@ -15,13 +15,13 @@ module Ncase
     # @return [String] the `camelCase` representation of the string
     def camel_case
       first_word = @words.first
-      if first_word.nil?
-        ""
-      else
+      if first_word
         @words.drop(1)
           .map {|s| s.capitalize}
           .unshift(first_word.downcase)
           .join
+      else
+        ""
       end
     end
 
