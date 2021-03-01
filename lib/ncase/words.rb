@@ -81,7 +81,7 @@ module Ncase
     private
 
     SPACE_SEP_REGEXP      = /\s+/
-    DASH_SEP_REGEXP       = /-/
+    HYPHEN_SEP_REGEXP     = /-/
     UNDERSCORE_SEP_REGEXP = /_/
     CASE_SEP_REGEXP       = /(?<=[[:lower:]]) (?=[[:upper:]]) | (?<=[[:upper:]]) (?=[[:upper:]] [[:lower:]])/x
 
@@ -90,14 +90,12 @@ module Ncase
       if s.scan(SPACE_SEP_REGEXP).count > 0
         SPACE_SEP_REGEXP
       else
-        num_total = s.count("-_")
-        if num_total > 0
-          num_dash = s.count("-")
-          if num_dash * 2 >= num_total
-            # More dashes.
-            DASH_SEP_REGEXP
+        num_both = s.count("-_")
+        if num_both > 0
+          num_hyphens = s.count("-")
+          if num_hyphens * 2 >= num_both
+            HYPHEN_SEP_REGEXP
           else
-            # More underscores.
             UNDERSCORE_SEP_REGEXP
           end
         else
