@@ -89,7 +89,7 @@ module Ncase
 
     # @return [Regexp] the most likely separator for the string
     def guess_separator(s)
-      if s.scan(SPACE_SEP_REGEXP).count > 0
+      if s.include?(" ")
         SPACE_SEP_REGEXP
       else
         num_both = s.count("-_")
