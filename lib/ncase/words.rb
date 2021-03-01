@@ -9,7 +9,8 @@ module Ncase
   class Words
     def initialize(s)
       ss = s.strip
-      @words = ss.split(Words.guess_sep(ss))
+      sep = guess_separator(ss)
+      @words = ss.split(sep)
     end
 
     # @return [String] the `camelCase` representation of the string
@@ -78,15 +79,16 @@ module Ncase
         .join
     end
 
-    private
-
     SPACE_SEP_REGEXP      = /\s+/
     HYPHEN_SEP_REGEXP     = /-/
     UNDERSCORE_SEP_REGEXP = /_/
     CASE_SEP_REGEXP       = /(?<=[[:lower:]]) (?=[[:upper:]]) | (?<=[[:upper:]]) (?=[[:upper:]] [[:lower:]])/x
+    private_constant :SPACE_SEP_REGEXP, :HYPHEN_SEP_REGEXP, :UNDERSCORE_SEP_REGEXP, :CASE_SEP_REGEXP
+
+    private
 
     # @return [Regexp] the most likely separator for the string
-    def self.guess_sep(s)
+    def guess_separator(s)
       if s.scan(SPACE_SEP_REGEXP).count > 0
         SPACE_SEP_REGEXP
       else
