@@ -13,6 +13,5 @@ end
 
 YARD::Rake::YardocTask.new do |yard|
   yard.options << "--fail-on-warning"
-  yard.options << "--markup" << "markdown"
   yard.options << "--no-progress" if ENV["CI"]
 end
