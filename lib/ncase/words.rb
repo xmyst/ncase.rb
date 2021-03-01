@@ -5,13 +5,21 @@ module Ncase
   # Implements efficient conversion of a string into a multitude of case
   # styles.
   #
+  # Guesses the separator in the string:
+  #
+  # 1. If the string contains spaces '+\x20+', any sequence of whitespace is a
+  #    separator.
+  # 2. If the string contains hyphens '+-+' or underscores '+_+', whichever of
+  #    them is more frequent is a separator.
+  # 3. A case-switch is a separator.
+  #
   # @example Convert a string into +PascalCase+
   #   require "ncase"
   #
   #   w = Ncase::Words.new("this is a test string")
-  #   puts w.pascal_case  # => "ThisIsATestString"
+  #   p w.pascal_case  # => "ThisIsATestString"
   class Words
-    # @param s [String] a string to prepare
+    # @param s [String] a string to prepare for conversion
     def initialize(s)
       ss = s.strip
       sep = guess_separator(ss)
