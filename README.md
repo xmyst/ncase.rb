@@ -1,59 +1,36 @@
 # [ɪn'keɪs] — enforce a case style
 
-## Contents
+## Installation
 
-*   [Usage](#usage)
-    -   [Synopsis](#synopsis)
-    -   [Description](#description)
-    -   [Options](#options)
+The usual
 
-## Usage
+    gem install ncase
 
-### Synopsis
+## bin/ncase
 
-    ncase [OPTIONS] [TEXT]
+Enforces a chosen (or random) case on string(s) and writes them to the standard
+output.
 
-### Description
+    % ncase --pascal-case this is a test string
+    ThisIsATestString
 
-Enforces a chosen (random) case on string(s)
-and writes them to the standard output.
+    % ncase --lower-case ThisIsATestString
+    this is a test string
 
-### Options
+    % ncase this is a test string
+    ThiS IS A tesT stRINg
 
-`-c`, `--camel-case`
-:   Enforce `camelCase`.
+    % ncase --help
+    Usage: ncase [OPTIONS] [TEXT]
+    ...
 
-`-P`, `--pascal-case`
-:   Enforce `PascalCase`.
+## lib/ncase
 
-`-k`, `--kebab-case`
- :   Enforce `kebab-case`.
+Provides class {Ncase::Words} which implements efficient conversion of a string
+into a multitude of case styles.
 
-`-K`, `--upper-kebab-case`
- :   Enforce `KEBAB-CASE`.
+    require "ncase"
 
-`-l`, `--lower-case`
- :   Enforce `lower case`.
-
-`-U`, `--upper-case`
- :   Enforce `UPPER CASE`.
-
-`-s`, `--snake-case`
- :   Enforce `snake_case`.
-
-`-S`, `--upper-snake-case`
- :   Enforce `SNAKE_CASE`.
-
-`-t`, `--title-case`
- :   Enforce `Title Case`.
-
-`-T`, `--inver-title-case`
- :   Enforce `tITLE cASE`.
-
-`-r`, `--random-case`
- :   Enforce `rAnDOm CaSe`[^1].
-
-`TEXT`
- :   Text to process. If omitted, line by line process the standard input.
-
-[^1]: Default.
+    w = Ncase::Words.new("this is a test string")
+    p w.pascal_case       # => "ThisIsATestString"
+    p w.inver_title_case  # => "tTHIS iS a tEST sTRING"
