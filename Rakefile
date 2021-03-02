@@ -9,7 +9,10 @@ require "yard"
 task default: %w[test yard]
 
 spec = Gem::Specification.load("ncase.gemspec")
-Gem::PackageTask.new(spec) {}  # rubocop:disable Lint/EmptyBlock
+Gem::PackageTask.new(spec) do |pkg|
+  pkg.need_tar_xz = true
+  pkg.need_zip = true
+end
 
 Rake::TestTask.new do |test|
   test.libs << "test"
