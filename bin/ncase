@@ -6,10 +6,13 @@ $LOAD_PATH.unshift("#{__dir__}/../lib")
 require "ncase"
 require "optparse"
 
+separator = nil
 to_case = :random_case
 OptionParser.new do |opts|
   opts.banner = "Usage: ncase [OPTIONS] [TEXT]"
   opts.version = Ncase::VERSION
+
+  opts.on("-F", "--separator REGEXP", "Use REGEXP as the separator") {|v| separator = v}
 
   opts.on("-c", "--camel-case",       "Enforce camelCase")     {to_case = :camel_case}
   opts.on("-P", "--pascal-case",      "Enforce PascalCase")    {to_case = :pascal_case}
@@ -24,6 +27,7 @@ OptionParser.new do |opts|
   opts.on("-r", "--random-case",      "Enforce `rAnDOm CaSe`") {to_case = :random_case}
 end.parse!
 
+separator &&= Regexp.new(separator)
 in_lines = if ARGV.empty? then readlines else [ARGV.join(" ")] end
-out_lines = in_lines.map {|l| Ncase::Words.new(l).__send__ to_case}
+out_lines = in_lines.map {|l| Ncase::Words.new(l, separator: separator).__send__ to_case}
 puts out_lines

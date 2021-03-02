@@ -5,7 +5,7 @@ module Ncase
   # Implements efficient conversion of a string into a multitude of case
   # styles.
   #
-  # Guesses the separator in the string:
+  # By default will guess the separator in the string:
   #
   # 1. If the string contains spaces '+\x20+', any sequence of whitespace is a
   #    separator.
@@ -19,11 +19,14 @@ module Ncase
   #   w = Ncase::Words.new("this is a test string")
   #   p w.pascal_case  # => "ThisIsATestString"
   class Words
-    # @param s [String] a string to prepare for conversion
-    def initialize(s)
+    # @param s [String] the string to convert
+    # @param separator [Regexp] the pattern to split the string into words.
+    #   If +nil+, it will guess the separator as described in {Words}.
+    # @see String#split
+    def initialize(s, separator: nil)
       ss = s.strip
-      sep = guess_separator(ss)
-      @words = ss.split(sep)
+      separator ||= guess_separator(ss)
+      @words = ss.split(separator)
     end
 
     # @return [String] the +camelCase+ representation of the string
