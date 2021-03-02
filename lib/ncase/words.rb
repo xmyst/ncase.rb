@@ -9,8 +9,8 @@ module Ncase
   #
   # 1. If the string contains spaces '+\x20+', any sequence of whitespace is a
   #    separator.
-  # 2. If the string contains hyphens '+-+' or underscores '+_+', whichever of
-  #    them is more frequent is a separator.
+  # 2. If the string contains hyphens '+-+' or underscores '+_+', whichever is
+  #    more frequent is a separator.
   # 3. A case-switch is a separator.
   #
   # @example Convert a string into +PascalCase+
