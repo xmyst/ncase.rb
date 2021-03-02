@@ -7,7 +7,7 @@ module Ncase
   class WordsTest < Minitest::Test
     TEST_STRING = "this is a test string"
 
-    def test_guess
+    def test_guess_separator
       {
         "this is-a test_string" => "This Is-a Test_string",
         "this-is-a-test_string" => "This Is A Test_string",
@@ -17,6 +17,18 @@ module Ncase
       }.each do |s, t|
         assert_equal t, Words.new(s).title_case
       end
+    end
+
+    def test_guess_separator_string
+      s = "this is a test string"
+      t = "His is a Es sRing"
+      assert_equal t, Words.new(s, separator: "t").camel_case
+    end
+
+    def test_guess_separator_regex
+      s = "this is a test string"
+      t = "HS S a Es sRNg"
+      assert_equal t, Words.new(s, separator: /t|i/).camel_case
     end
 
     def test_non_random_cases
