@@ -98,7 +98,9 @@ module Ncase
     SPACE_SEP_REGEXP      = /\s+/
     HYPHEN_SEP_REGEXP     = /-/
     UNDERSCORE_SEP_REGEXP = /_/
-    CASE_SEP_REGEXP       = /(?<=[[:lower:]]) (?=[[:upper:]]) | (?<=[[:upper:]]) (?=[[:upper:]] [[:lower:]])/x
+    CASE_SEP_REGEXP       = / (?<=[[:lower:]]) (?=[[:upper:]])              # z|A
+                            | (?<=[[:upper:]]) (?=[[:upper:]] [[:lower:]])  # A|Bc
+                            /x
     private_constant :SPACE_SEP_REGEXP, :HYPHEN_SEP_REGEXP, :UNDERSCORE_SEP_REGEXP, :CASE_SEP_REGEXP
 
     private
