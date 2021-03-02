@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/ncase.svg)](https://badge.fury.io/rb/ncase)
+
 # Installation
 
 The usual
