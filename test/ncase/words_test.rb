@@ -19,13 +19,13 @@ module Ncase
       end
     end
 
-    def test_guess_separator_string
+    def test_separator_string
       s = "this is a test string"
       t = "His is a Es sRing"
       assert_equal t, Words.new(s, separator: "t").camel_case
     end
 
-    def test_guess_separator_regex
+    def test_separator_regex
       s = "this is a test string"
       t = "HS S a Es sRNg"
       assert_equal t, Words.new(s, separator: /t|i/).camel_case
