@@ -13,7 +13,7 @@ module Ncase
         "this-is-a-test_string" => "This Is A Test_string",
         "this_is-a_test-string" => "This_is A_test String",
         "this_is_a_test-string" => "This Is A Test-string",
-        "ThisIsATestString"     => "This Is A Test String",
+        "ThisIsATestString"     => "This Is A Test String"
       }.each do |s, t|
         assert_equal t, Words.new(s).title_case
       end
@@ -43,9 +43,9 @@ module Ncase
         snake_case:       "this_is_a_test_string",
         upper_snake_case: "THIS_IS_A_TEST_STRING",
         title_case:       "This Is A Test String",
-        inver_title_case: "tHIS iS a tEST sTRING",
+        inver_title_case: "tHIS iS a tEST sTRING"
       }.each do |m, s|
-        assert_equal s, (w.send m)
+        assert_equal s, (w.__send__ m)
       end
     end
 

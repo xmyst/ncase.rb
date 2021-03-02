@@ -19,14 +19,14 @@ module Ncase
   #   w = Ncase::Words.new("this is a test string")
   #   p w.pascal_case  # => "ThisIsATestString"
   class Words
-    # @param s [String] the string to convert
+    # @param str [String] the string to convert
     # @param separator [Regexp] the pattern to split the string into words.
     #   If +nil+, it will guess the separator as described in {Words}.
     # @see String#split
-    def initialize(s, separator: nil)
-      ss = s.strip
-      separator ||= guess_separator(ss)
-      @words = ss.split(separator)
+    def initialize(str, separator: nil)
+      sstr = str.strip
+      separator ||= guess_separator(sstr)
+      @words = sstr.split(separator)
     end
 
     # @return [String] the +camelCase+ representation of the string
@@ -34,9 +34,9 @@ module Ncase
       first_word = @words.first
       if first_word
         @words.drop(1)
-          .map {|s| s.capitalize}
-          .unshift(first_word.downcase)
-          .join
+              .map(&:capitalize)
+              .unshift(first_word.downcase)
+              .join
       else
         ""
       end
@@ -44,42 +44,42 @@ module Ncase
 
     # @return [String] the +PascalCase+ representation of the string
     def pascal_case
-      @words.map {|s| s.capitalize}.join
+      @words.map(&:capitalize).join
     end
 
     # @return [String] the +kebab-case+ representation of the string
     def kebab_case
-      @words.map {|s| s.downcase}.join("-")
+      @words.map(&:downcase).join("-")
     end
 
     # @return [String] the +KEBAB-CASE+ representation of the string
     def upper_kebab_case
-      @words.map {|s| s.upcase}.join("-")
+      @words.map(&:upcase).join("-")
     end
 
     # @return [String] the +lower case+ representation of the string
     def lower_case
-      @words.map {|s| s.downcase}.join(" ")
+      @words.map(&:downcase).join(" ")
     end
 
     # @return [String] the +UPPER CASE+ representation of the string
     def upper_case
-      @words.map {|s| s.upcase}.join(" ")
+      @words.map(&:upcase).join(" ")
     end
 
     # @return [String] the +snake_case+ representation of the string
     def snake_case
-      @words.map {|s| s.downcase}.join("_")
+      @words.map(&:downcase).join("_")
     end
 
     # @return [String] the +SNAKE_CASE+ representation of the string
     def upper_snake_case
-      @words.map {|s| s.upcase}.join("_")
+      @words.map(&:upcase).join("_")
     end
 
     # @return [String] the +Title Case+ representation of the string
     def title_case
-      @words.map {|s| s.capitalize}.join(" ")
+      @words.map(&:capitalize).join(" ")
     end
 
     # @return [String] the +tITLE cASE+ representation of the string
@@ -90,34 +90,30 @@ module Ncase
     # @return [String] a +rAnDOm CaSe+ representation of the string
     def random_case
       @words.join(" ")
-        .chars
-        .map {|c| if rand(2) == 0 then c.downcase else c.upcase end}
-        .join
+            .chars
+            .map { |c| rand(2).zero? ? c.downcase : c.upcase }
+            .join
     end
 
-    SPACE_SEP_REGEXP      = /\s+/
-    HYPHEN_SEP_REGEXP     = /-/
-    UNDERSCORE_SEP_REGEXP = /_/
+    SPACE_SEP_REGEXP      = /\s+/.freeze
+    HYPHEN_SEP_REGEXP     = /-/.freeze
+    UNDERSCORE_SEP_REGEXP = /_/.freeze
     CASE_SEP_REGEXP       = / (?<=[[:lower:]]) (?=[[:upper:]])              # z|A
                             | (?<=[[:upper:]]) (?=[[:upper:]] [[:lower:]])  # A|Bc
-                            /x
+                            /x.freeze
     private_constant :SPACE_SEP_REGEXP, :HYPHEN_SEP_REGEXP, :UNDERSCORE_SEP_REGEXP, :CASE_SEP_REGEXP
 
     private
 
+    # @param str [String] the string to guess the separator
     # @return [Regexp] the most likely separator for the string
-    def guess_separator(s)
-      if s.include?(" ")
+    def guess_separator(str)
+      if str.include?(" ")
         SPACE_SEP_REGEXP
       else
-        num_both = s.count("-_")
-        if num_both > 0
-          num_hyphens = s.count("-")
-          if num_hyphens * 2 >= num_both
-            HYPHEN_SEP_REGEXP
-          else
-            UNDERSCORE_SEP_REGEXP
-          end
+        num_both = str.count("-_")
+        if num_both.positive?
+          str.count("-") * 2 >= num_both ? HYPHEN_SEP_REGEXP : UNDERSCORE_SEP_REGEXP
         else
           CASE_SEP_REGEXP
         end

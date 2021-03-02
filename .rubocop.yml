@@ -1,0 +1,14 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.4
+
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
+
+Metrics:
+  Exclude:
+    - "test/**/*"
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

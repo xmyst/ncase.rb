@@ -11,10 +11,12 @@ Gem::Specification.new do |spec|
   spec.summary = "Enforce a case style."
   spec.homepage = "https://github.com/xmyst/ncase"
   spec.metadata = {
-    "source_code_uri" => "https://github.com/xmyst/ncase",
+    "source_code_uri" => "https://github.com/xmyst/ncase"
   }
   spec.executables = ["ncase"]
   spec.files = Dir["lib/**/*"]
+
+  spec.required_ruby_version = ">= 2.4"
 
   spec.add_development_dependency "minitest", "~> 5.11"
   spec.add_development_dependency "rake", "~> 12.3"
