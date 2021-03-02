@@ -2,9 +2,14 @@
 
 require "rake/clean"
 require "rake/testtask"
+require "rubygems"
+require "rubygems/package_task"
 require "yard"
 
 task default: %w[test yard]
+
+spec = Gem::Specification.load("ncase.gemspec")
+Gem::PackageTask.new(spec) {}  # rubocop:disable Lint/EmptyBlock
 
 Rake::TestTask.new do |test|
   test.libs << "test"
