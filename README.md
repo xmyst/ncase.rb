@@ -1,12 +1,10 @@
-# [ɪn'keɪs] — enforce a case style
-
-## Installation
+# Installation
 
 The usual
 
     gem install ncase
 
-## bin/ncase
+# bin/ncase
 
 Enforces a chosen (or random) case on string(s) and writes them to the standard
 output.
@@ -24,7 +22,7 @@ output.
     Usage: ncase [OPTIONS] [TEXT]
     ...
 
-## lib/ncase
+# lib/ncase
 
 Provides class {Ncase::Words} which implements efficient conversion of a string
 into a multitude of case styles.
