@@ -24,7 +24,7 @@ module Ncase
     def test_new_separator_string
       {
         "is" => "th_ _ a test string",
-        ""   => "t_h_i_s_ _i_s_ _a_ _t_e_s_t_ _s_t_r_i_n_g",
+        ""   => "t_h_i_s_ _i_s_ _a_ _t_e_s_t_ _s_t_r_i_n_g"
       }.each do |x, y|
         assert_equal y, Words.new(TEST_STRING, separator: x).snake_case
       end
@@ -33,7 +33,7 @@ module Ncase
     def test_new_separator_regexp
       {
         /is?/ => "th_ _ a test str_ng",
-        //    => "t_h_i_s_ _i_s_ _a_ _t_e_s_t_ _s_t_r_i_n_g",
+        //    => "t_h_i_s_ _i_s_ _a_ _t_e_s_t_ _s_t_r_i_n_g"
       }.each do |x, y|
         assert_equal y, Words.new(TEST_STRING, separator: x).snake_case
       end
