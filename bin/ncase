@@ -16,12 +16,12 @@ OptionParser.new do |opts|
 
   opts.on("-c", "--camel-case",       "Enforce camelCase")     { to_case = :camel_case }
   opts.on("-P", "--pascal-case",      "Enforce PascalCase")    { to_case = :pascal_case }
+  opts.on("-s", "--snake-case",       "Enforce snake_case")    { to_case = :snake_case }
+  opts.on("-S", "--upper-snake-case", "Enforce SNAKE_CASE")    { to_case = :upper_snake_case }
   opts.on("-k", "--kebab-case",       "Enforce kebab-case")    { to_case = :kebab_case }
   opts.on("-K", "--upper-kebab-case", "Enforce KEBAB-CASE")    { to_case = :upper_kebab_case }
   opts.on("-l", "--lower-case",       "Enforce `lower case`")  { to_case = :lower_case }
   opts.on("-U", "--upper-case",       "Enforce `UPPER CASE`")  { to_case = :upper_case }
-  opts.on("-s", "--snake-case",       "Enforce snake_case")    { to_case = :snake_case }
-  opts.on("-S", "--upper-snake-case", "Enforce SNAKE_CASE")    { to_case = :upper_snake_case }
   opts.on("-t", "--title-case",       "Enforce `Title Case`")  { to_case = :title_case }
   opts.on("-T", "--inver-title-case", "Enforce `tITLE cASE`")  { to_case = :inver_title_case }
   opts.on("-r", "--random-case",      "Enforce `rAnDOm CaSe`") { to_case = :random_case }
