@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift("#{__dir__}/../lib") if __dir__ =~ /proj|src/i
+$LOAD_PATH.unshift("#{__dir__}/../lib") if /proj|src/i.match?(__dir__)
 
 require "ncase"
 require "optparse"

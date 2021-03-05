@@ -2,17 +2,20 @@
 
 require "rake/clean"
 require "rake/testtask"
+require "rubocop/rake_task"
 require "rubygems"
 require "rubygems/package_task"
 require "yard"
 
-task default: %w[test yard]
+task default: %w[rubocop test yard]
 
 spec = Gem::Specification.load("ncase.gemspec")
 Gem::PackageTask.new(spec) do |pkg|
   pkg.need_tar_xz = true
   pkg.need_zip = true
 end
+
+RuboCop::RakeTask.new
 
 Rake::TestTask.new do |test|
   test.libs << "test"

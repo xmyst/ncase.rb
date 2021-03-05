@@ -64,7 +64,6 @@ module Ncase
 
       assert TEST_STRING.casecmp?(r1)
       assert TEST_STRING.casecmp?(r2)
-      assert r1.casecmp?(r2)
       refute_equal r1, r2
     end
   end
