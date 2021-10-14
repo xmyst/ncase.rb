@@ -8,6 +8,7 @@ require "optparse"
 
 separator = nil
 to_case = :random_case
+
 OptionParser.new do |opts|
   opts.banner = "Usage: ncase [OPTIONS] [TEXT]"
   opts.version = Ncase::VERSION
@@ -28,6 +29,9 @@ OptionParser.new do |opts|
 end.parse!
 
 separator &&= Regexp.new(separator)
-in_lines = ARGV.empty? ? readlines : [ARGV.join(" ")]
-out_lines = in_lines.map { |l| Ncase::Words.new(l, separator: separator).__send__ to_case }
-puts out_lines
+
+input = ARGV.empty? ? readlines : [ARGV.join(" ")]
+input.each do |line|
+  words = Ncase::Words.new(line, separator: separator)
+  puts words.__send__ to_case
+end
