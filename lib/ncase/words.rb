@@ -33,52 +33,64 @@ module Ncase
     def camel_case
       return "" if @words.empty?
 
-      @words.drop(1).map(&:capitalize).unshift(@words.first.downcase).join
+      @words.each(&:capitalize!)
+      @words.first.downcase!
+      @words.join
     end
 
     # @return [String] the +PascalCase+ representation of the string
     def pascal_case
-      @words.map(&:capitalize).join
+      @words.each(&:capitalize!)
+      @words.join
     end
 
     # @return [String] the +kebab-case+ representation of the string
     def kebab_case
-      @words.map(&:downcase).join("-")
+      @words.each(&:downcase!)
+      @words.join("-")
     end
 
     # @return [String] the +KEBAB-CASE+ representation of the string
     def upper_kebab_case
-      @words.map(&:upcase).join("-")
+      @words.each(&:upcase!)
+      @words.join("-")
     end
 
     # @return [String] the +lower case+ representation of the string
     def lower_case
-      @words.map(&:downcase).join(" ")
+      @words.each(&:downcase!)
+      @words.join(" ")
     end
 
     # @return [String] the +UPPER CASE+ representation of the string
     def upper_case
-      @words.map(&:upcase).join(" ")
+      @words.each(&:upcase!)
+      @words.join(" ")
     end
 
     # @return [String] the +snake_case+ representation of the string
     def snake_case
-      @words.map(&:downcase).join("_")
+      @words.each(&:downcase!)
+      @words.join("_")
     end
 
     # @return [String] the +SNAKE_CASE+ representation of the string
     def upper_snake_case
-      @words.map(&:upcase).join("_")
+      @words.each(&:upcase!)
+      @words.join("_")
     end
 
     # @return [String] the +Title Case+ representation of the string
     def title_case
-      @words.map(&:capitalize).join(" ")
+      @words.each(&:capitalize!)
+      @words.join(" ")
     end
 
     # @return [String] the +tITLE cASE+ representation of the string
     def inver_title_case
-      title_case.swapcase
+      @words.each(&:capitalize!)
+      @words.each(&:swapcase!)
+      @words.join(" ")
     end
 
     # @return [String] a +rAnDOm CaSe+ representation of the string
