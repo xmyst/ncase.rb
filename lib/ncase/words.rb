@@ -31,15 +31,9 @@ module Ncase
 
     # @return [String] the +camelCase+ representation of the string
     def camel_case
-      first_word = @words.first
-      if first_word
-        @words.drop(1)
-              .map(&:capitalize)
-              .unshift(first_word.downcase)
-              .join
-      else
-        ""
-      end
+      return "" if @words.empty?
+
+      @words.drop(1).map(&:capitalize).unshift(@words.first.downcase).join
     end
 
     # @return [String] the +PascalCase+ representation of the string
