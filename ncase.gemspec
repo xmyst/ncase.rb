@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.executables = ["ncase"]
   spec.files = Dir["lib/**/*"]
 
-  spec.required_ruby_version = ">= 2.4"
+  spec.required_ruby_version = ">= 2.6"
 
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "rake"
