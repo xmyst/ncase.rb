@@ -40,64 +40,54 @@ module Ncase
 
     # @return [String] the +PascalCase+ representation of the string
     def pascal_case
-      @words.each(&:capitalize!)
-      @words.join
+      @words.each(&:capitalize!).join
     end
 
     # @return [String] the +kebab-case+ representation of the string
     def kebab_case
-      @words.each(&:downcase!)
-      @words.join("-")
+      @words.each(&:downcase!).join("-")
     end
 
     # @return [String] the +KEBAB-CASE+ representation of the string
     def upper_kebab_case
-      @words.each(&:upcase!)
-      @words.join("-")
+      @words.each(&:upcase!).join("-")
     end
 
     # @return [String] the +lower case+ representation of the string
     def lower_case
-      @words.each(&:downcase!)
-      @words.join(" ")
+      @words.each(&:downcase!).join(" ")
     end
 
     # @return [String] the +UPPER CASE+ representation of the string
     def upper_case
-      @words.each(&:upcase!)
-      @words.join(" ")
+      @words.each(&:upcase!).join(" ")
     end
 
     # @return [String] the +snake_case+ representation of the string
     def snake_case
-      @words.each(&:downcase!)
-      @words.join("_")
+      @words.each(&:downcase!).join("_")
     end
 
     # @return [String] the +SNAKE_CASE+ representation of the string
     def upper_snake_case
-      @words.each(&:upcase!)
-      @words.join("_")
+      @words.each(&:upcase!).join("_")
     end
 
     # @return [String] the +Title Case+ representation of the string
     def title_case
-      @words.each(&:capitalize!)
-      @words.join(" ")
+      @words.each(&:capitalize!).join(" ")
     end
 
     # @return [String] the +tITLE cASE+ representation of the string
     def inver_title_case
-      @words.each(&:capitalize!)
-      @words.each(&:swapcase!)
-      @words.join(" ")
+      @words.each(&:capitalize!).each(&:swapcase!).join(" ")
     end
 
     # @return [String] a +rAnDOm CaSe+ representation of the string
     def random_case
       @words.join(" ")
             .chars
-            .map { |c| rand(2).zero? ? c.downcase : c.upcase }
+            .each { |c| rand(2).zero? ? c.downcase! : c.upcase! }
             .join
     end
 
@@ -114,16 +104,15 @@ module Ncase
     # @param str [String] the string to guess the separator
     # @return [Regexp] the most likely separator for the string
     def guess_separator(str)
-      if str.include?(" ")
-        SPACE_SEP_REGEXP
-      else
-        num_both = str.count("-_")
-        if num_both.positive?
-          str.count("-") * 2 >= num_both ? HYPHEN_SEP_REGEXP : UNDERSCORE_SEP_REGEXP
-        else
-          CASE_SEP_REGEXP
-        end
+      return SPACE_SEP_REGEXP if str.include?(" ")
+
+      num_both = str.count("-_")
+      if num_both.positive?
+        return HYPHEN_SEP_REGEXP if str.count("-") * 2 >= num_both
+
+        return UNDERSCORE_SEP_REGEXP
       end
+      CASE_SEP_REGEXP
     end
   end
 end
