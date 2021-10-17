@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Support library for +bin/ncase+.
 module Ncase
   # Implements efficient conversion of a string into a multitude of case
   # styles.

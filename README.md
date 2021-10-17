@@ -2,13 +2,13 @@
 
 # Installation
 
-The usual
+The usual.
 
     gem install ncase
 
-# bin/ncase
+# "Binary"
 
-Enforces a chosen (or random) case on string(s) and writes them to the standard
+Enforces the chosen case style on string(s) and writes them to the standard
 output.
 
     % ncase --pascal-case this is a test string
@@ -17,17 +17,25 @@ output.
     % ncase --lower-case ThisIsATestString
     this is a test string
 
+By default, enforces the random case.
+
     % ncase this is a test string
     ThiS IS A tesT stRINg
 
-    % ncase --help
-    Usage: ncase [OPTIONS] [TEXT]
-    ...
+# Library
 
-# lib/ncase
+## Ncase
 
-Provides class {Ncase::Words} which implements efficient conversion of a string
-into a multitude of case styles.
+Module {Ncase} contains convenience methods for all supported case styles.
+
+    require "ncase"
+
+    p Ncase.pascal("this is a test string")  # => "ThisIsATestString"
+
+## Ncase::Words
+
+Class {Ncase::Words} implements efficient conversion of a string into different
+case styles.
 
     require "ncase"
 

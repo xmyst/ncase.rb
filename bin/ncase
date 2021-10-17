@@ -7,7 +7,7 @@ require "ncase"
 require "optparse"
 
 separator = nil
-to_case = :random_case
+to_case = :random
 
 OptionParser.new do |opts|
   opts.banner = "Usage: ncase [OPTIONS] [TEXT]"
@@ -15,23 +15,20 @@ OptionParser.new do |opts|
 
   opts.on("-F", "--separator REGEXP", "Use REGEXP as the separator") { |v| separator = v }
 
-  opts.on("-c", "--camel-case",       "Enforce camelCase")     { to_case = :camel_case }
-  opts.on("-P", "--pascal-case",      "Enforce PascalCase")    { to_case = :pascal_case }
-  opts.on("-s", "--snake-case",       "Enforce snake_case")    { to_case = :snake_case }
-  opts.on("-S", "--upper-snake-case", "Enforce SNAKE_CASE")    { to_case = :upper_snake_case }
-  opts.on("-k", "--kebab-case",       "Enforce kebab-case")    { to_case = :kebab_case }
-  opts.on("-K", "--upper-kebab-case", "Enforce KEBAB-CASE")    { to_case = :upper_kebab_case }
-  opts.on("-l", "--lower-case",       "Enforce `lower case`")  { to_case = :lower_case }
-  opts.on("-U", "--upper-case",       "Enforce `UPPER CASE`")  { to_case = :upper_case }
-  opts.on("-t", "--title-case",       "Enforce `Title Case`")  { to_case = :title_case }
-  opts.on("-T", "--inver-title-case", "Enforce `tITLE cASE`")  { to_case = :inver_title_case }
-  opts.on("-r", "--random-case",      "Enforce `rAnDOm CaSe`") { to_case = :random_case }
+  opts.on("-c", "--camel-case",       "Enforce camelCase")     { to_case = :camel }
+  opts.on("-P", "--pascal-case",      "Enforce PascalCase")    { to_case = :pascal }
+  opts.on("-s", "--snake-case",       "Enforce snake_case")    { to_case = :snake }
+  opts.on("-S", "--upper-snake-case", "Enforce SNAKE_CASE")    { to_case = :upper_snake }
+  opts.on("-k", "--kebab-case",       "Enforce kebab-case")    { to_case = :kebab }
+  opts.on("-K", "--upper-kebab-case", "Enforce KEBAB-CASE")    { to_case = :upper_kebab }
+  opts.on("-l", "--lower-case",       "Enforce `lower case`")  { to_case = :lower }
+  opts.on("-U", "--upper-case",       "Enforce `UPPER CASE`")  { to_case = :upper }
+  opts.on("-t", "--title-case",       "Enforce `Title Case`")  { to_case = :title }
+  opts.on("-T", "--inver-title-case", "Enforce `tITLE cASE`")  { to_case = :inver_title }
+  opts.on("-r", "--random-case",      "Enforce `rAnDOm CaSe`") { to_case = :random }
 end.parse!
 
 separator &&= Regexp.new(separator)
 
 input = ARGV.empty? ? readlines : [ARGV.join(" ")]
-input.each do |line|
-  words = Ncase::Words.new(line, separator: separator)
-  puts words.__send__ to_case
-end
+input.each { |line| puts Ncase.public_send(to_case, line, separator: separator) }
