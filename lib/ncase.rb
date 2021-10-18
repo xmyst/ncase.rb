@@ -7,6 +7,7 @@ require_relative "ncase/words"
 module Ncase
   private
 
+  # Delegate +<name>+ to +Words#<name>_case+ if it's defined.
   def method_missing(name, *args)
     words_name = "#{name}_case".to_sym
     if Words.respond_to?(words_name)
