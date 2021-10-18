@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Ncase
-  # Implements efficient conversion of a string into different case styles.
+  # Implements efficient conversion of a string into multiple case styles.
   #
   # By default will guess the separator in the string:
   #
@@ -18,7 +18,7 @@ module Ncase
   #   p w.pascal_case  # => "ThisIsATestString"
   #   p w.snake_case   # => "this_is_a_test_string"
   class Words
-    # @param str [String] the string to convert
+    # @param str [String] the string to work with
     # @param separator [Regexp] the pattern to split the string into words.
     #   If +nil+, it will guess the separator as described in {Words}.
     # @see String#split

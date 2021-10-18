@@ -8,7 +8,7 @@ The usual.
 
 = "Binary"
 
-Enforces the chosen case style on string(s) and writes them to the standard
+Enforces the chosen case style on a string and writes it to the standard
 output.
 
     % ncase --pascal-case this is a test string
@@ -22,9 +22,21 @@ By default, enforces the random case.
     % ncase this is a test string
     ThiS IS A tesT stRINg
 
+If no string is specified, processes the standard input line by line.
+
+    % cat input.txt
+    ThisIsATestString
+    THIS_IS_ANOTHER_TEST_STRING
+    This is yet another test string
+
+    % ncase --snake-case <input.txt
+    this_is_a_test_string
+    this_is_another_test_string
+    this_is_yet_another_test_string
+
 = Library
 
-== Ncase
+== (Conveniently) enforcing a case style
 
 Module {Ncase} contains convenience methods for all supported case styles.
 
@@ -33,9 +45,9 @@ Module {Ncase} contains convenience methods for all supported case styles.
     p Ncase.pascal("this is a test string")  # => "ThisIsATestString"
     p Ncase.upper_snake("ICannotReadThis")   # => "I_CANNOT_READ_THIS"
 
-== Ncase::Words
+== Enforcing multiple case styles
 
-Class {Ncase::Words} implements efficient conversion of a string into different
+Class {Ncase::Words} implements efficient conversion of a string into multiple
 case styles.
 
     require "ncase"
