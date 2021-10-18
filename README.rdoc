@@ -1,12 +1,12 @@
-[![Gem Version](https://badge.fury.io/rb/ncase.svg)](https://badge.fury.io/rb/ncase)
+{<img src="https://badge.fury.io/rb/ncase.svg" alt="Gem Version">}[https://badge.fury.io/rb/ncase]
 
-# Installation
+= Installation
 
 The usual.
 
     gem install ncase
 
-# "Binary"
+= "Binary"
 
 Enforces the chosen case style on string(s) and writes them to the standard
 output.
@@ -22,17 +22,18 @@ By default, enforces the random case.
     % ncase this is a test string
     ThiS IS A tesT stRINg
 
-# Library
+= Library
 
-## Ncase
+== Ncase
 
 Module {Ncase} contains convenience methods for all supported case styles.
 
     require "ncase"
 
     p Ncase.pascal("this is a test string")  # => "ThisIsATestString"
+    p Ncase.upper_snake("ICannotReadThis")   # => "I_CANNOT_READ_THIS"
 
-## Ncase::Words
+== Ncase::Words
 
 Class {Ncase::Words} implements efficient conversion of a string into different
 case styles.
