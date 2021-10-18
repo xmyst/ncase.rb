@@ -5,19 +5,18 @@ require_relative "ncase/words"
 
 # Contains convenience methods for one-off use.
 module Ncase
-  private
+  module_function
 
   # Delegate +<name>+ to +Words#<name>_case+ if it's defined.
   def method_missing(name, *args)
-    words_name = "#{name}_case".to_sym
-    if Words.respond_to?(words_name)
-      Words.new(*args).public_send(words_name)
+    if (method = Words.public_instance_method("#{name}_case"))
+      method.bind(Words.new(*args)).call
     else
       super
     end
   end
 
   def respond_to_missing?(name, *)
-    Words.respond_to?("#{name}_case") || super
+    Words.public_instance_method("#{name}_case") || super
   end
 end
